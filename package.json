@@ -5,6 +5,7 @@
   "main": "scrape.js",
   "dependencies": {
     "express": "^4.17.1",
+    "jsonfile": "^6.1.0",
     "mongoose": "^6.0.13",
     "puppeteer": "^11.0.0",
     "puppeteer-extra": "^3.2.3",

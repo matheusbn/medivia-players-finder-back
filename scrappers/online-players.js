@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer-extra')
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const Login = require('./models/login')
 const Scrape = require('./models/scrape')
-const mongoose = require('mongoose')
+const db = require('./database')
 
 puppeteer.use(StealthPlugin())
 
@@ -10,26 +10,18 @@ const browserWidth = 1200
 const broswerHeight = 960
 
 const scrape = async () => {
-  await mongoose.connect('mongodb+srv://admin:salvedaniel@cluster0.kfu7a.mongodb.net/medivia?retryWrites=true&w=majority').catch(console.error);
+  await db.connect()
 
   const browser = await puppeteer.launch({
     headless: false,
-    slowMo: 500,
-    args: [
-      // `--window-size=${browserWidth},${broswerHeight}`,
-      // '--disable-infobars',
-    ],
+    slowMo: 250,
   })
 
   const [page] = await browser.pages()
 
-  // await page.setUserAgent(
-  //   '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"'
-  // )
   await page.setViewport({
     width: browserWidth,
-    height: broswerHeight,
-    // deviceScaleFactor: 1,
+    height: broswerHeight
   })
 
   await page.goto(`https://medivia.online/community/online/pendulum`, {
@@ -57,10 +49,9 @@ const scrape = async () => {
     })
 
     const scrape = await Scrape.create({})
-    console.log(scrape)
     const insertRes = await Login.insertMany(logins.map(s => ({...s, scrapeId: scrape._id})))
-    console.log(insertRes)
 
+    console.log(insertRes)
     console.log(logins)
   } catch (error) {
     console.error(error)
