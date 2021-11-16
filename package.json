@@ -13,7 +13,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "scrape": "node ./scrape.js"
+    "scrape:online-players": "node ./scrappers/online-players.js",
+    "scrape:player-details": "node ./scrappers/player-details.js"
   },
   "keywords": [],
   "author": "",

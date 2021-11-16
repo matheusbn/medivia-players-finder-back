@@ -1,8 +1,6 @@
 const puppeteer = require('puppeteer-extra')
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-const Login = require('./models/login')
-const Scrape = require('./models/scrape')
-const db = require('./database')
+const db = require('../database')
 const saveCookies = require('../utils/saveCookies')
 
 puppeteer.use(StealthPlugin())
@@ -37,4 +35,4 @@ const scrape = async (callback) => {
   await browser.close();
 }
 
-scrape()
+module.exports = scrape
