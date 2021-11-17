@@ -3,7 +3,7 @@ const scrape = require("./scrape");
 const querystring = require("querystring");
 
 const getCharacterDetails = async (characterName) => {
-  await scrape(async (page) => {
+  return await scrape(async (page) => {
     await page.goto(
       `https://medivia.online/community/character/${querystring.escape(
         characterName
@@ -45,7 +45,8 @@ const getCharacterDetails = async (characterName) => {
       };
     });
 
-    const character = await Character.create(characterData)
+    const character = await Character.create(characterData);
+    return character;
   });
 };
 
