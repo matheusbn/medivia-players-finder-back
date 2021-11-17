@@ -4,15 +4,19 @@
   "description": "",
   "main": "scrape.js",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonfile": "^6.1.0",
     "mongoose": "^6.0.13",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
     "puppeteer": "^11.0.0",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.9.0"
   },
   "devDependencies": {},
   "scripts": {
+    "dev": "nodemon server.js",
     "scrape:online-players": "node ./scrappers/online-players.js",
     "scrape:player-details": "node ./scrappers/player-details.js"
   },

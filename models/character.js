@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const characterSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
   {
     name: String,
     position: String,
@@ -20,4 +20,4 @@ const characterSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Character", characterSchema);
+module.exports = mongoose.model("Character", schema);

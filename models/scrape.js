@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-const scrapeSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
   {},
   {
     timestamps: true,
   }
 )
 
-module.exports = mongoose.model('Scrape', scrapeSchema)
+module.exports = mongoose.model('Scrape', schema)
