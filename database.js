@@ -5,6 +5,8 @@ const config = require('./config')
 // https://twm.me/correct-way-to-use-mongoose/
 
 module.exports = {
-  connect: () => mongoose.connect(config.databaseUrl),
+  connect: () => {
+    mongoose.connect(config.databaseUrl)
+  },
   disconnect: mongoose.disconnect,
 }
