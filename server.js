@@ -5,6 +5,7 @@ const routes = require('./routes')
 const db = require('./database')
 const config = require('./config')
 const mongoose = require('mongoose')
+const expressJwt = require('express-jwt')
 
 const server = express()
 
@@ -12,8 +13,16 @@ server.use(morgan('tiny'));
 server.use(express.json());
 server.use(cors());
 
-server.use('/', routes);
+server.use(
+  expressJwt({
+    secret: config.jwtSecret,
+    algorithms: ['HS256'],
+    credentialsRequired: false,
+    requestProperty: 'userJwt',
+  }),
+);
 
+server.use('/', routes);
 
 db.connect()
 const { connection } = mongoose;
