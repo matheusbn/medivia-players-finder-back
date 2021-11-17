@@ -1,11 +1,9 @@
-const character = require("../models/character");
-// const Login = require("../models/login");
-// const Scrape = require("../models/scrape");
+const Character = require("../models/character");
 const scrape = require("./scrape");
 const querystring = require("querystring");
 
-const getCharacterDetails = (characterName) => {
-  scrape(async (page) => {
+const getCharacterDetails = async (characterName) => {
+  await scrape(async (page) => {
     await page.goto(
       `https://medivia.online/community/character/${querystring.escape(
         characterName
@@ -17,7 +15,7 @@ const getCharacterDetails = (characterName) => {
 
     await page.waitForSelector(".med-width-100");
 
-    const character = await page.evaluate(() => {
+    const characterData = await page.evaluate(() => {
       const character = Array.from(
         document
           .evaluate(
@@ -47,9 +45,8 @@ const getCharacterDetails = (characterName) => {
       };
     });
 
-    console.log(character);
+    const character = await Character.create(characterData)
   });
 };
 
 module.exports = getCharacterDetails;
-getCharacterDetails("Al Saud");
