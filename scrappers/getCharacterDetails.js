@@ -30,16 +30,14 @@ const getCharacterDetails = async (characterName) => {
             ".med-white-space-normal"
           ).children
       ).forEach((item) => {
-        const label = item.children[0].innerText;
+        const label = item.children[0].innerText.replace(":", "");
         const value = item.children[1].innerText;
+
         character[label] = value;
-        console.log(value);
-        console.log(label);
       });
-      console.log(character);
 
       return {
-        name: character[0],
+        name: character["name"],
         position: character["position"],
         sex: character["sex"],
         profession: character["profession"],
@@ -52,9 +50,12 @@ const getCharacterDetails = async (characterName) => {
         accountStatus: character["account status"],
       };
     });
-    const character = await Character.create(characterData);
-    console.log(characterData, character);
-    return character;
+
+    console.log(characterData)
+
+    // const character = await Character.create(characterData);
+
+    return characterData;
   });
 };
 

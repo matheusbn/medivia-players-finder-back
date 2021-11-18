@@ -35,7 +35,7 @@ const scrape = async (callback) => {
   const cookies = await page.cookies();
   await saveCookies(cookies);
 
-  // await browser.close();
+  await browser.close();
   return callbackResult;
 };
 
