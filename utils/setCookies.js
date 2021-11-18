@@ -1,6 +1,8 @@
 const fs = require('fs').promises
 
 module.exports = async page => {
+  try {
+
   const cookiesString = await fs.readFile('./last-run-cookies.json')
   const cookies = JSON.parse(cookiesString)
   console.log(cookies.find(c => c.name === "cf_clearance"))
@@ -15,4 +17,7 @@ module.exports = async page => {
   // )
 
   await page.setCookie(...cookies).catch(error => console.error(error))
+  } catch(error) {
+    console.log("Error setting cookies:", error.message)
+  }
 }
