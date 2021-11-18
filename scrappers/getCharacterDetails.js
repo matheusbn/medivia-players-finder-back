@@ -12,11 +12,13 @@ const getCharacterDetails = async (characterName) => {
         waitUntil: "networkidle0",
       }
     );
+    page.waitForResponse((response) => { console.log(response.status()) })
 
     await page.waitForSelector(".med-width-100");
 
     const characterData = await page.evaluate(() => {
       const character = {};
+
       Array.from(
         document
           .evaluate(
