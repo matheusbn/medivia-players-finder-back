@@ -2,6 +2,7 @@ const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const db = require("../database");
 const saveCookies = require("../utils/saveCookies");
+const setCookies = require("../utils/setCookies");
 
 puppeteer.use(StealthPlugin());
 
@@ -26,6 +27,8 @@ const scrape = async (callback) => {
     width: browserWidth,
     height: broswerHeight,
   });
+
+  await setCookies(page)
 
   const callbackResult = await callback(page);
 
