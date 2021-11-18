@@ -16,7 +16,8 @@ const getCharacterDetails = async (characterName) => {
     await page.waitForSelector(".med-width-100");
 
     const characterData = await page.evaluate(() => {
-      const character = Array.from(
+      const character = {};
+      Array.from(
         document
           .evaluate(
             '//div[text()="Information"]',
@@ -28,24 +29,31 @@ const getCharacterDetails = async (characterName) => {
           .singleNodeValue.nextElementSibling.querySelector(
             ".med-white-space-normal"
           ).children
-      ).map((item) => item.children[1].innerText);
+      ).forEach((item) => {
+        const label = item.children[0].innerText;
+        const value = item.children[1].innerText;
+        character[label] = value;
+        console.log(value);
+        console.log(label);
+      });
+      console.log(character);
 
       return {
         name: character[0],
-        position: character[1],
-        sex: character[2],
-        profession: character[3],
-        level: character[4],
-        world: character[5],
-        residence: character[6],
-        house: character[7],
-        lastLogin: character[8],
-        status: character[9],
-        accountStatus: character[10],
+        position: character["position"],
+        sex: character["sex"],
+        profession: character["profession"],
+        level: character["level"],
+        world: character["world"],
+        residence: character["residence"],
+        house: character["house"],
+        lastLogin: character["last login"],
+        status: character["status"],
+        accountStatus: character["account status"],
       };
     });
-
     const character = await Character.create(characterData);
+    console.log(characterData, character);
     return character;
   });
 };

@@ -8,6 +8,6 @@ const router = Router();
 
 router.use("/", authController);
 router.use("/users", auth.requiredUser, usersController);
-router.use("/characters", auth.requiredUser, charactersController);
+router.use("/characters", charactersController);
 
 module.exports = router;
